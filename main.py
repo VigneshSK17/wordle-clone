@@ -1,4 +1,6 @@
 import random
+# Imports library called colorama (to color the )
+from colorama import Fore, Style 
 
 # Gets a random word from words.txt
 def get_wordle_word():
@@ -32,6 +34,30 @@ def get_guess():
     guess = input("Enter a guess: ") # Asks user for guess
   return guess # Returns guess value once guess is valid
 
-get_guess()
+# Color the user's guess
+# PARAMETER: guess - The inputted guess to be checked (from the user)
+# PARAMETER: wordle_word - The word which the guess is being checked against
+def color_guess(guess, wordle_word):
+  colored_guess = [] # Array which will hold the colored version of the guess
+
+  # Loops through indices from 0 to the length of the guess string (exclusive)
+  for i in range(len(guess)):
+    # If the guess's letter for that index is the same as the wordle_word's letter for that inde
+    if guess[i] == wordle_word[i]:
+      # Put into the array of colored letters the guess letter colored in green
+      colored_guess.append(f'{Fore.GREEN}{guess[i]}{Style.RESET_ALL}')
+    # Else if the guess letter is anywhere in the wordle_word
+    elif guess[i] in wordle_word:
+      # Put into the array of colored letters the guess letter colored in yellow
+      colored_guess.append(f'{Fore.YELLOW}{guess[i]}{Style.RESET_ALL}')
+    # Else (the guess's letter is not in the wordle_word)
+    else:
+      # Just put the letter (no coloring) into the array of letters
+      colored_guess.append(guess[i])
+
+  return colored_guess # Returns the colored array
+
+# Test if color works
+print(' '.join(color_guess(get_guess(), 'crane')))
 
 
